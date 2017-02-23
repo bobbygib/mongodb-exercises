@@ -1,15 +1,9 @@
 module.exports = function(db) {
 	//What is the title of the movie(s) that was the most checked out?
-	db.collection("checkouts").distinct('movieId', function(err, data) {
-		db.things.aggregate([ 
-    {$checkouts:{ id: "$movieId", count: {$size:{"$ifNull":["$movidId",[]]} } }}, 
-    {$sort : {count : -1}}, 
-    {$limit : 1 }
-])
-	db.things.aggregate([
-
+	db.collection("checkouts").aggregate([ 'movieId', function(err, data) {
   {$checkouts:{
-    id: "$movieId", count: {$size:{"$ifNull":["$movieId",[]]} }
+    id: "$movieId", 
+    count: {$size:{"$ifNull":["$movieId",[]]} }
   }},
   {$group: {
     _id: null, 
