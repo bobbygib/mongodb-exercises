@@ -1,16 +1,25 @@
 module.exports = function(db) {
 	//What is the title of the movie(s) that was the most checked out?
-	db.collection("checkouts").aggregate([ 'movieId', function(err, data) {
-  {$checkouts:{
-    id: "$movieId", 
-    count: {$size:{"$ifNull":["$movieId",[]]} }
-  }},
-  {$group: {
-    _id: null, 
-    max: { $max: "$count" }
-  }}
-])
-	console.log(max)
-	console.log ("Exercise 3:\n\tThe movie(s) X, Y -- checked out Z times");
+	db.collection("checkouts").aggregate([
+		{
+			$sortByCount: "$movieId"
+		},
+		{
+			$lookup : {
+				from: "movies",
+				localField: "_id",
+				foreignField: "movieId",
+				as: "movieData"
+			}
+		}
+	], function(err, max) {
+			if(err){
+				console.log(err);
+				return;
+
+		}
+		//xconsole.log(max)
+		console.log (`Exercise 3:\n\tThe movie ${max[0].movieData[0].title} -- was checked out ${max[0].count} times`);
 	});
+
 };

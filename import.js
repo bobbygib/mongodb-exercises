@@ -88,7 +88,7 @@ function importAll(db) {
 			return {
 				userId: line[0].substr(4),
 				month: line[1],
-				movieId: line[2]
+				movieId: parseInt(line[2])
 			};
 		});
 

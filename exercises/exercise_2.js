@@ -2,7 +2,7 @@ module.exports = function(db) {
 	// Which users checked out any of the Lord of the Rings trilogy?
 	db.collection("checkouts").find({
 				movieId : {
-        $in : ["8", "11", "15"]                  
+        $in : [8, 11, 15]                  
         }
 		}).toArray(function(err, data) {
 			var usersLOTR = [];
