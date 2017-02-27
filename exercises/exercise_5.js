@@ -22,17 +22,30 @@ module.exports = function(db) {
 				console.log(err);
 				return;
 		}
-		console.log(max)
+
 		var bArray = [];
 		for(var i = 0; i < max.length; i ++){
 			if(max[i].count === max[0].count){
-				bArray.push(max[i])
-				//console.log(bArray)
-			}
+				bArray.push(max[i]._id)
+			}		
+		}
+		var emptStng = "";
+
+		db.collection("movies").find({
+			movieId : {
+      $in : bArray                  
+      }
+		}).toArray(function(err, data){
+
+		for(var j in data){
+			emptStng += data[j].title + ", "
+		}
 
 		
-		}
-	console.log(`Exercise 5:\n\tMovies had the most checkouts in April with ${max[0].count} checkouts`);
+	
+	
+		console.log(`Exercise 5:\n\tMovies ${emptStng} had the most checkouts in April with ${max[0].count} checkouts`);
 	//console.log(max)
+		})
 	})
 };

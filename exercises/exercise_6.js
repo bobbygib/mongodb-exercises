@@ -19,7 +19,7 @@ module.exports = function(db) {
 		}
 	
 	console.log(max[0])
-	console.log(`Exercise 6:\n\tUser(s) ${max[0]._id} had the most checkouts: max[0].count`);
+	console.log(`Exercise 6:\n\tUser(s) ${max._id} had the most checkouts: ${max[0].count}`);
 	//console.log(max)
 	});
 };
